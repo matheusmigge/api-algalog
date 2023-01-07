@@ -1,4 +1,4 @@
-package com.algaworks.algalog.apiController;
+package com.algaworks.algalog.api.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algalog.domain.model.Cliente;
 import com.algaworks.algalog.domain.repository.ClienteRepository;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -56,13 +57,13 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Cliente cadastrar(@RequestBody Cliente cliente){
+    Cliente cadastrar(@Valid @RequestBody Cliente cliente){
         
         return clienteRepository.save(cliente);
     }
 
     @PutMapping("/{clienteId}")
-    ResponseEntity<Cliente> atualiza(@PathVariable Long clienteId, @RequestBody Cliente cliente){
+    ResponseEntity<Cliente> atualiza(@PathVariable Long clienteId, @Valid @RequestBody Cliente cliente){
 
         if(!clienteRepository.existsById(clienteId)){
 
