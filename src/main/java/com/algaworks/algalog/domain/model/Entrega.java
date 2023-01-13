@@ -42,6 +42,8 @@ public class Entrega {
     @ManyToOne
     private Cliente cliente;
     
+    @NotNull
+    @Valid
     // Declara que dentro dessa classe contém algumas variáveis que originalmente pertenceriam a classe atual, porém foram jogadas em uma classe separada para melhor organização.
     @Embedded 
     private Destinatario destinatario;
