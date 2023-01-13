@@ -3,6 +3,7 @@ package com.algaworks.algalog.domain.model;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import com.algaworks.algalog.domain.ValidationGroups;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -14,7 +15,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.groups.ConvertGroup;
+import jakarta.validation.groups.Default;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,9 +34,12 @@ public class Entrega {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Valid
+    // O parâmetro passado em NotNull serve para bypassar o comportamento "Default" dessa anotação. Passamos uma interface vazia no lugar para ela se comportar de maneira diferente da padrão
+    @ConvertGroup(from = Default.class, to = ValidationGroups.clienteId.class)
+    @NotNull
     // Declara propriamente a ligação com a classe cliente existente.
     @ManyToOne
-    @NotNull
     private Cliente cliente;
     
     // Declara que dentro dessa classe contém algumas variáveis que originalmente pertenceriam a classe atual, porém foram jogadas em uma classe separada para melhor organização.

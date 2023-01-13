@@ -16,9 +16,15 @@ import lombok.AllArgsConstructor;
 public class CatalogoClienteService {
 
     private ClienteRepository clienteRepository; 
+
+    public Cliente buscar(Long clienteId){
+
+        return clienteRepository.findById(clienteId)
+            .orElseThrow(() -> new NegocioException("Cliente não encontrado."));
+
+    }
     
     // Componente do Spring que indica que aqui será uma transação, ou seja, se algo de errado neste método, a operação deve ser inteiramente descartada
-
     @Transactional
     public Cliente salvar(Cliente cliente){
 

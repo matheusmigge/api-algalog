@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algalog.domain.model.Entrega;
+import com.algaworks.algalog.domain.repository.EntregaRepository;
 import com.algaworks.algalog.domain.service.SolicitacaoEntregaService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -17,13 +19,16 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/entregas")
 public class EntregaController {
 
+    // private EntregaRepository entregaRepository;
     private SolicitacaoEntregaService solicitacaoEntregaService;
 
     @PostMapping
     // serve para caso haja sucesso, o código Http não dê 200, mas sim 201 (criado com sucesso)
     @ResponseStatus(HttpStatus.CREATED) 
-    public Entrega solicitar(@RequestBody Entrega entrega){
+    public Entrega solicitar(@Valid @RequestBody Entrega entrega){
         return solicitacaoEntregaService.solicitar(entrega);
     }
+
+     
 
 }
